@@ -28,12 +28,12 @@
 //</ul>
 //
 //<div><div>Related Topics</div><div><li>双指针</li><li>字符串</li><li>动态规划</li></div></div><br><div><li>👍 7884</li><li>👎 0</li></div>
-package src.main.java.leetcode.editor.cn;
+package com.shuzijun.leetcode.editor.en;
 
 public class LongestPalindromicSubstring {
     public static void main(String[] args) {
         Solution solution = new LongestPalindromicSubstring().new Solution();
-        String s="abba";
+        String s="bananas";
         System.out.println(solution.longestPalindrome(s));
     }
 
@@ -44,7 +44,6 @@ public class LongestPalindromicSubstring {
             int after=s.length()-1;
             String maxLongestString="";
 
-
             if(s.length()==1){
                 return s;
             }
@@ -52,28 +51,32 @@ public class LongestPalindromicSubstring {
             while(pre<after){
                 int i=pre;
                 int j=after;
-
+                //aacabdkacaa
                 String currentLongestString="";
+                int sub_flag=1;
                 while(i<j){
-                    if(s.charAt(i)!=s.charAt(j)){
-
-                    }else{
-                        i++;
-
-                    }
-                    j--;
-
-                    if(s.charAt(i)==s.charAt(j)){
-                        currentLongestString=s.substring(i,j+1);
+                    char c1 = s.charAt(i);
+                    char c2 = s.charAt(j);
+                    if(c1 == c2){
+                        if(j-i>currentLongestString.length()) {
+                            currentLongestString = s.substring(i, j + 1);
+                        }
                         i++;
                         j--;
                     }else{
                         currentLongestString="";
-                        j--;
+                        i=pre;
+                        j=after-sub_flag;
+                        sub_flag++;
                     }
-
+                    
 
                 }
+                
+                if(currentLongestString.length()==0){
+                    currentLongestString=s.substring(i,j+1);
+                }
+                
                 if(currentLongestString.length()>maxLongestString.length()){
                     maxLongestString=currentLongestString;
                 }
