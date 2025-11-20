@@ -1,4 +1,4 @@
-
+package com.shuzijun.leetcode.editor.en;
 //<p>有两种特殊字符：</p>
 //
 //<ul> 
@@ -38,7 +38,7 @@
 //</ul>
 //
 //<div><div>Related Topics</div><div><li>数组</li></div></div><br><div><li>👍 327</li><li>👎 0</li></div>
-package src.main.java.leetcode.editor.cn;
+
 
 import java.sql.Array;
 import java.util.ArrayList;
