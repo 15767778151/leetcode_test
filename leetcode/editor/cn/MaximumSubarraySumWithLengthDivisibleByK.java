@@ -60,8 +60,8 @@ import java.util.Arrays;
 public class MaximumSubarraySumWithLengthDivisibleByK {
     public static void main(String[] args) {
         Solution solution = new MaximumSubarraySumWithLengthDivisibleByK().new Solution();
-        int[] nums = {-10,-1};
-        int k=1;
+        int[] nums = {-1,-2,-3,-4,-5};
+        int k = 4;
         System.out.println(solution.maxSubarraySum(nums, k));
 
     }
@@ -69,48 +69,54 @@ public class MaximumSubarraySumWithLengthDivisibleByK {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public long maxSubarraySum(int[] nums, int k) {
-            //线队nums进行降序排序
-            //Arrays.sort(nums);
-            //// 手动反转数组实现降序
-            //for (int i = 0; i < nums.length / 2; i++) {
-            //    int temp = nums[i];
-            //    nums[i] = nums[nums.length - 1 - i];
-            //    nums[nums.length - 1 - i] = temp;
-            //}
-
-            //-1,-2,-3,-4,-5
-            int currentSum = 0;
-            int maxSum = 0;
-            int maxLength = 0;
-            int currentLength = 0;
-            //从后往前遍历
-            boolean is_first = true;
-            for (int i = 0; i < nums.length; i++) {
-                if (nums.length - i < k) {
-                    return maxSum;
-                }
-                for (int j = 0; j < k; j++) {
-                    currentSum += nums[i + j];
-                }
-
-                if (is_first) {
-                    maxSum = currentSum;
-                    maxLength=k;
-                    is_first = false;
-                }else {
-                    maxLength+=k;
-                    maxSum+=currentSum;
-                    //if(currentSum>0){
-                    //    maxSum+=currentSum;
-                    //    maxLength+=k;
-                    //}
-                }
-                currentSum = 0;
-                i = i + k - 1;
+            int n = nums.length;
+            long prefixSum = 0;
+            long maxSum = Long.MIN_VALUE;
+            long[] kSum = new long[k];
+            for (int i = 0; i < k; i++) {
+                kSum[i] = Long.MAX_VALUE / 2;
             }
-
-
+            kSum[k - 1] = 0;
+            for (int i = 0; i < n; i++) {
+                prefixSum += nums[i];
+                maxSum = Math.max(maxSum, prefixSum - kSum[i % k]);
+                kSum[i % k] = Math.min(kSum[i % k], prefixSum);
+            }
             return maxSum;
+
+            ////-1,-2,-3,-4,-5
+            //int currentSum = 0;
+            //int maxSum = 0;
+            //int maxLength = 0;
+            //int currentLength = 0;
+            ////从后往前遍历
+            //boolean is_first = true;
+            //for (int i = 0; i < nums.length; i++) {
+            //    if (nums.length - i < k) {
+            //        return maxSum;
+            //    }
+            //    for (int j = 0; j < k; j++) {
+            //        currentSum += nums[i + j];
+            //    }
+            //
+            //    if (is_first) {
+            //        maxSum = currentSum;
+            //        maxLength = k;
+            //        is_first = false;
+            //    } else {
+            //        maxLength += k;
+            //        maxSum += currentSum;
+            //        //if(currentSum>0){
+            //        //    maxSum+=currentSum;
+            //        //    maxLength+=k;
+            //        //}
+            //    }
+            //    currentSum = 0;
+            //    i = i + k - 1;
+            //}
+            //
+            //
+            //return maxSum;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
